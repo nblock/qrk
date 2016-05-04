@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Arial</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../qrk.qrc">
+    <normaloff>:/icons/logo.png</normaloff>:/icons/logo.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>32</width>
+    <height>32</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_3"/>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
+   <widget class="QMenu" name="menuDatei">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="title">
+     <string>Da&amp;tei</string>
+    </property>
+    <addaction name="actionDEP_Exportieren"/>
+   </widget>
+   <widget class="QMenu" name="menuHilfe">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <property name="title">
+     <string>Hi&amp;lfe</string>
+    </property>
+    <addaction name="actionAbout_QRK"/>
+    <addaction name="actionAbout_QT"/>
+    <addaction name="separator"/>
+    <addaction name="actionQRK_Forum"/>
+   </widget>
+   <widget class="QMenu" name="menuDEMOMODUS">
+    <property name="title">
+     <string>DE&amp;MOMODUS</string>
+    </property>
+    <addaction name="actionDEMO_Daten_zur_cksetzen"/>
+    <addaction name="actionDEMOMODUS_Verlassen"/>
+   </widget>
+   <addaction name="menuDatei"/>
+   <addaction name="menuHilfe"/>
+   <addaction name="menuDEMOMODUS"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionDEP_Exportieren">
+   <property name="text">
+    <string>&amp;DEP Exportieren</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
+  </action>
+  <action name="actionEOD">
+   <property name="text">
+    <string>&amp;EOD</string>
+   </property>
+  </action>
+  <action name="actionEOM">
+   <property name="text">
+    <string>E&amp;OM</string>
+   </property>
+  </action>
+  <action name="actionAbout_QRK">
+   <property name="text">
+    <string>&amp;Über QRK</string>
+   </property>
+  </action>
+  <action name="actionAbout_QT">
+   <property name="text">
+    <string>Über &amp;QT</string>
+   </property>
+  </action>
+  <action name="actionDEMO_Daten_zur_cksetzen">
+   <property name="text">
+    <string>&amp;DEMO Daten zurücksetzen</string>
+   </property>
+  </action>
+  <action name="actionDEMOMODUS_Verlassen">
+   <property name="text">
+    <string>DEMOMODUS &amp;Verlassen</string>
+   </property>
+  </action>
+  <action name="actionQRK_Forum">
+   <property name="text">
+    <string>QRK Forum</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../qrk.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,73 @@
+#
+# This file is part of QRK - Qt Registrier Kasse
+#
+# Copyright (C) 2015-2016 Christian Kvasny <chris@ckvsoft.at>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+#
+# Button Design, and Idea for the Layout are lean out from LillePOS, Copyright 2010, Martin Koller, kollix@aon.at
+#
+#
+
+To Do Liste:
+
+erledigt    QR-Code bzw. OCR-Code für 2017 (VERSION 0.16.0327)
+erledigt    AES256 für 2017 (VERSION 0.16.0327)
+erledigt    Kundentext bei Dokumenten anzeigen (VERSION 0.16.0222)
+erledigt    Dokumente - Filter über alle Felder (VERSION 0.16.0222)
+            Wird mit Spaltensortierung ausgewählt
+
+erledigt    Serverbetrieb mit automatischen Import (JSon) (VERSION 0.16.0222)
+   JSonFormat:
+     {"r2b":[
+     {"receiptNum":"RE12345", "net":"22.50", "gross":"27.00", "payedBy":"0" }
+     ]}
+
+     PAYED_BY_CASH = 0
+     PAYED_BY_DEBITCARD = 1
+     PAYED_BY_CREDITCARD = 2
+
+     Dateinamen r2b_1.json, r2b_2.json .... , r2b_4.json
+     in dieser Reihenfolge werden die Bons erstellt.
+
+erledigt    Gruppen und Artikel auf Button legen (VERSION 0.16.0204)
+erledigt    Gruppen und Artikel Manager (VERSION 0.16.0204)
+erledigt    Backup bei jedem Tagesabschluss (VERSION 0.16.0202)
+erledigt    Firmenname Fett drucken (VERSION 0.16.0130)
+erledigt    Datenverzeichnis Pfadangabe im Settings Dialog (VERSION 0.16.0115)
+erledigt    Logoauswahl im Settings Dialog (VERSION 0.16.0115)
+erledigt    (VERSION 0.16.0115)
+            Button für Kopie als Firmenrechnung, dabei soll der Bon ohne Logo, ohne Kopf und ohne Fußtext rechts auf ein A4
+            auf einen eigens definierbaren Drucker gedruckt werden
+            (Damit dort ein vorgedrucktes Firmenpapier eingelegt werden kann" mit dem zusätzlichen Wortlaut
+            Dient als Steuerbeleg für ihr Finanzamt.
+            Wichtig: Beleg bitte aufbewahren.
+            Diese Rechnung ist nur in Verbindung
+            Mit dem angehefteten Kassenbon gültig.
+            >> Datum = Liefer- und Rechnungsdatum <<
+
+erledigt    Netto Preiseingabe ermöglichen          (VERSION 0.16.0112)
+erledigt    Bon zu Beleg einzeln in Tagesabschluss  (VERSION 0.16.0106)
+            auflisten
+erledigt    Deutsche und Schweizer                  (VERSION 0.16.0105)
+            Steuersätze
+erledigt    Fußzeile                                (VERSION 0.16.0104)
+erledigt    Stammdaten Eingabe                      (VERSION 0.16.0104)
+erledigt    Fußtext auf Kassebon                    (VERSION 0.16.0104)
+erledigt    Bon zu beleg 2-zeilig Drucken           (VERSION 0.15.1231)
+
+offen       Mehrzeilige Produktzeile bei der Eingabe
+offen       Grössere Buttons für Touch (bitte nur wahlweise wegen kleinem Bildschirm)
+offen       Cardreader Support
+offen       DEP Export (JSONFormat)
