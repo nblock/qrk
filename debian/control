@@ -1,0 +1,33 @@
+Source: qrk
+Priority: extra
+Maintainer: Florian Preinstorfer <nblock@archlinux.us>
+Build-Depends: debhelper (>= 9.0.0),
+               qtbase5-dev(>= 5.3.1),
+               libqrencode-dev,
+               libcrypto++-dev,
+               imagemagick,
+Standards-Version: 3.9.7
+Section: misc
+Homepage: http://www.ckvsoft.at/
+Vcs-Browser: https://github.com/nblock/qrk
+Vcs-Git: git://github.com/nblock/qrk.git
+
+Package: qrk
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Description: Graphical cash register for small companies.
+ QRK is a graphical cash register software aimed for small companies.
+ .
+ Features:
+  * Compliant with Austrian regulation
+  * Tax rates for Austria, Germany and Switzerland
+  * AES 256 encrypted revenue counte
+  * DEP Datenerfassungsprotokoll with export
+  * Support for invoices
+  * Automatic creation of articles
+  * Print support (PDF, printer, invoice printer)
+  * Management of groups and articles
+  * Quick buttons for fast access
+  * Automatic backup
+  * Server Mode (automatic import from R2B)

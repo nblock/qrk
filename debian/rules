@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	qmake -qt=qt5 -r
+
+override_dh_auto_build:
+	dh_auto_build
+	convert -resize 48x48! src/icons/logo.png debian/qrk.png

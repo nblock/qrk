@@ -1,0 +1,21 @@
+From: Florian Preinstorfer <nblock@archlinux.us>
+Date: Wed, 4 May 2016 21:07:12 +0200
+Subject: Rename target to lowercase
+
+---
+ src/src.pro | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/src.pro b/src/src.pro
+index e306155..fdd177e 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -33,7 +33,7 @@ QT += printsupport
+ 
+ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+ 
+-TARGET = ../bin/QRK
++TARGET = ../bin/qrk
+ # TEMPLATE = app
+ 
+ SOURCES += main.cpp\

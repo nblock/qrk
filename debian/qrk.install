@@ -1,0 +1,3 @@
+bin usr/
+debian/qrk.desktop usr/share/applications
+debian/qrk.png usr/share/icons/hicolor/48x48/apps

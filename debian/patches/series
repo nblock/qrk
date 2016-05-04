@@ -1,0 +1,3 @@
+0001-Rename-target-to-lowercase.patch
+0002-Use-QStandardPaths-AppDataLocation-as-base-path.patch
+0003-Remove-autoupdater.patch

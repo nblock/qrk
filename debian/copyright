@@ -1,0 +1,14 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: QRK
+Source: http://www.ckvsoft.at/
+
+Files: *
+Copyright: 2015-2016 Christian Kvasny <chris@ckvsoft.at>
+License: GPL-3
+
+Files: debian/*
+Copyright: 2016 Florian Preinstorfer <nblock@archlinux.us>
+License: GPL-3
+
+License: GPL-3
+ /usr/share/common-licenses/GPL-3
