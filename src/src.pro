@@ -33,7 +33,7 @@ QT += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ../bin/QRK
+TARGET = ../bin/qrk
 # TEMPLATE = app
 
 SOURCES += main.cpp\
@@ -68,7 +68,8 @@ SOURCES += main.cpp\
     import/import.cpp \
     utils/demomode.cpp \
     qrkdialog.cpp \
-    utils/qrcode.cpp
+    utils/qrcode.cpp \
+    font/fontselector.cpp
 
 HEADERS  += \
     databasedefinition.h \
@@ -103,7 +104,8 @@ HEADERS  += \
     import/import.h \
     utils/demomode.h \
     qrkdialog.h \
-    utils/qrcode.h
+    utils/qrcode.h \
+    font/fontselector.h
 
 FORMS += \
     ui/qrk.ui \
@@ -118,7 +120,8 @@ FORMS += \
     manager/groupedit.ui \
     manager/groupwidget.ui \
     manager/productedit.ui \
-    manager/productswidget.ui
+    manager/productswidget.ui \
+    font/fontselector.ui
 
 RESOURCES += \
     qrk.qrc
@@ -131,10 +134,12 @@ TRANSLATIONS += tr/QRK_en.ts \
 <------>error("Unable to include quazip.")
 }
 
+win32 {
 # Fervor autoupdater
 # (set TARGET and VERSION of your app before including Fervor.pri)
 !include("3rdparty/fervor-autoupdate/Fervor.pri") {
 <------>error("Unable to include Fervor autoupdater.")
+}
 }
 
 # LIBS += -lqrencode

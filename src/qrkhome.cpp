@@ -27,6 +27,7 @@
 #include <QMessageBox>
 #include <QDesktopWidget>
 #include <QSettings>
+#include <QStandardPaths>
 
 #include <QDebug>
 
@@ -126,17 +127,17 @@ void QRKHome::init()
     ui->backupDirIconLabel->setPixmap(pixmap);
     ui->backupDirLabel->setText(tr("n/a"));
   } else {
-    ui->backupDirLabel->setText(settings.value("backupDirectory", qApp->applicationDirPath()).toString());
+    ui->backupDirLabel->setText(settings.value("backupDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).toString());
   }
 
-  ui->dataDirlabel->setText(qApp->applicationDirPath() + "/data");
+  ui->dataDirlabel->setText(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/data");
 
   ui->lcdNumberDay->display(Database::getDayCounter());
   ui->lcdNumberMonth->display(Database::getMonthCounter());
   ui->lcdNumberYear->display(Database::getYearCounter());
-  ui->serverModeCheckBox->setText(tr("Server Modus (Importverzeichnis: %1)").arg(settings.value("importDirectory", qApp->applicationDirPath()  + "/import").toString()));
+  ui->serverModeCheckBox->setText(tr("Server Modus (Importverzeichnis: %1)").arg(settings.value("importDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)  + "/import").toString()));
 
-  watcherpath = settings.value("importDirectory", qApp->applicationDirPath() + "/import" ).toString();
+  watcherpath = settings.value("importDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +  "/import" ).toString();
 
   watcher.removePaths(watcher.directories());
   if (ui->serverModeCheckBox->isChecked()) {
