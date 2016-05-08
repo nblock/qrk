@@ -319,9 +319,8 @@ GeneralTab::GeneralTab(QSettings &settings, QWidget *parent)
 
   useLogo->setChecked(settings.value("useLogo", false).toBool());
   logoEdit->setText(settings.value("logo", "./logo.png").toString());
-  importDirectoryEdit->setText(settings.value("importDirectory", qApp->applicationDirPath() + "/import").toString());
-  backupDirectoryEdit->setText(settings.value("backupDirectory", qApp->applicationDirPath()).toString());
-
+  importDirectoryEdit->setText(settings.value("importDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/import").toString());
+  backupDirectoryEdit->setText(settings.value("backupDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).toString());
 }
 
 void GeneralTab::useLogoCheck_toggled(bool toggled)
@@ -409,6 +408,11 @@ MasterDataTab::MasterDataTab(QSettings &, QWidget *parent)
   shopCashRegisterId = new QLineEdit;
   taxlocation = new QComboBox;
   currency = new QComboBox;
+
+  QRegExp re("^[^_]+$");
+  QRegExpValidator *v = new QRegExpValidator(re);
+  shopCashRegisterId->setValidator(v);
+  shopCashRegisterId->setPlaceholderText(tr("z.B. Firmenname-1, QRK1, oder FN-1 ..."));
 
   query.prepare("SELECT strValue FROM globals WHERE name='shopName'");
   query.exec();

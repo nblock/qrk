@@ -20,23 +20,40 @@
  *
 */
 
-#ifndef BACKUP_H
-#define BACKUP_H
+#ifndef FONTSELECTOR_H
+#define FONTSELECTOR_H
 
-class QString;
+#include <QDialog>
 
-class Backup
+namespace Ui {
+  class FontSelector;
+}
+
+class FontSelector : public QDialog
 {
+    Q_OBJECT
+
   public:
-    static void create(QString dataDir);
-    static void create();
-    static void pakLogFile();
-    static void cleanUp();
+    explicit FontSelector(QWidget *parent = 0);
+    ~FontSelector();
+    QFont getFont();
+
+  private slots:
+    void on_pointSizeSlider_valueChanged(int value);
+    void on_pointSizeSpinBox_valueChanged(double value);
+    void on_stretchSpinBox_valueChanged(int value);
+    void on_stretchSlider_valueChanged(int value);
+
+    void on_weight_check_checked(bool checked);
+    void on_fontComboBox_currentFontChanged(const QFont &f);
+    virtual void accept(bool);
 
   private:
-    static bool removeDir(const QString & dirName);
+    void update();
 
+  private:
+    Ui::FontSelector *ui;
 
 };
 
-#endif // BACKUP_H
+#endif // FONTSELECTOR_H
