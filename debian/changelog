@@ -1,3 +1,14 @@
+qrk (0.16.0507-1) xenial; urgency=medium
+
+  [ Florian Preinstorfer ]
+  * Imported Upstream version 0.16.0507
+  * Imported Upstream version 0.16.0507
+  * Imported Upstream version 0.16.0507
+  * Imported Upstream version 0.16.0507
+  * Remove patches as they have been applied upstream
+
+ -- Florian Preinstorfer <nblock@archlinux.us>  Sun, 08 May 2016 19:27:08 +0200
+
 qrk (0.16.0502-1) xenial; urgency=low
 
   * Initial release
