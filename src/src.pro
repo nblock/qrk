@@ -142,10 +142,17 @@ win32 {
 }
 }
 
-# LIBS += -lqrencode
-# LIBS += -lpthread
+macx {
+ INCLUDEPATH += /usr/local/include
+ LIBS += -L/usr/local/lib -lqrencode
+} else {
+ LIBS += -lqrencode
+}
 
-LIBS  += -lqrencode
 LIBS += -lcryptopp
 LIBS += -lz
-# CONFIG += static
+
+CONFIG += link_pkgconfig
+unix:PKGCONFIG += libpcsclite
+macx:PKGCONFIG += libpcsclite
+win32:LIBS += libwinscard
