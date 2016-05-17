@@ -3,9 +3,10 @@ Priority: extra
 Maintainer: Florian Preinstorfer <nblock@archlinux.us>
 Build-Depends: debhelper (>= 9.0.0),
                qtbase5-dev(>= 5.3.1),
-               libqrencode-dev,
-               libcrypto++-dev,
                imagemagick,
+               libcrypto++-dev,
+               libpcsclite-dev,
+               libqrencode-dev,
 Standards-Version: 3.9.7
 Section: misc
 Homepage: http://www.ckvsoft.at/
