@@ -20,6 +20,14 @@
 #
 #
 
+VERSION 0.16.0517
+ + Schriftarten für System,Drucker und BON Drucker einstellbar
+ + SmardCard Libs
+
+VERSION 0.16.0515
+ * fix compile for older Linux (QT < 5.4)
+ * fix compile OSX Version
+
 VERSION 0.16.0507
  * fix Linuxpfade / keine Berechtigung
  * fix Eingabemöglichkeit von "_" (Unterstrich) bei KassenID entfernt
