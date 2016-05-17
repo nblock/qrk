@@ -1,3 +1,12 @@
+qrk (0.16.0517-1) xenial; urgency=medium
+
+  * Add my keyid
+  * Imported Upstream version 0.16.0517
+  * Add libpcsclite-dev as build dependency
+  * Add new patch to fix compilation
+
+ -- Florian Preinstorfer <nblock@archlinux.us>  Tue, 17 May 2016 19:53:46 +0200
+
 qrk (0.16.0507-1) xenial; urgency=medium
 
   [ Florian Preinstorfer ]
