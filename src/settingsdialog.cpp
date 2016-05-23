@@ -91,6 +91,14 @@ void SettingsDialog::accept()
 
   settings.setValue("useLogo", general->getUseLogo());
   settings.setValue("logo", general->getLogo());
+
+  QString oldDataDir = settings.value("sqliteDataDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/data").toString();
+  settings.setValue("sqliteDataDirectory", general->getDataDirectory());
+
+  if (oldDataDir != settings.value("sqliteDataDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/data").toString()) {
+    Database::reopen();
+  }
+
   settings.setValue("importDirectory", general->getImportDirectory());
   settings.setValue("backupDirectory", general->getBackupDirectory());
 
@@ -134,6 +142,9 @@ void SettingsDialog::accept()
   settings.setValue("marginTop", receiptprinter->getmarginTop());
   settings.setValue("marginRight", receiptprinter->getmarginRight());
   settings.setValue("marginBottom", receiptprinter->getmarginBottom());
+
+  /* remove unused settings*/
+  settings.remove("dataDirectory");
 
   QDialog::accept();
 
@@ -198,12 +209,18 @@ ExtraTab::ExtraTab(QSettings &settings, QWidget *parent)
   systemFontSizeLabel = new QLabel(QString::number(systemFont->pointSize()));
   systemFontStretchLabel = new QLabel(QString::number(systemFont->stretch()));
 
-  printerFontButton = new QPushButton(printerFont->family());
+  QFontInfo printerFontInfo(*printerFont);
+  QString sPrinterFontInfo = printerFontInfo.family();
+
+  printerFontButton = new QPushButton(sPrinterFontInfo);
   printerFontButton->setFont(*printerFont);
   printerFontSizeLabel = new QLabel(QString::number(printerFont->pointSize()));
   printerFontStretchLabel = new QLabel(QString::number(printerFont->stretch()));
 
-  receiptPrinterFontButton = new QPushButton(receiptPrinterFont->family());
+  QFontInfo receiptPrinterFontInfo(*receiptPrinterFont);
+  QString sReceiptPrinterFontInfo = receiptPrinterFontInfo.family();
+
+  receiptPrinterFontButton = new QPushButton(sReceiptPrinterFontInfo);
   receiptPrinterFontButton->setFont(*receiptPrinterFont);
   receiptPrinterFontSizeLabel = new QLabel(QString::number(receiptPrinterFont->pointSize()));
   receiptPrinterFontStretchLabel = new QLabel(QString::number(receiptPrinterFont->stretch()));
@@ -390,22 +407,27 @@ GeneralTab::GeneralTab(QSettings &settings, QWidget *parent)
 
 
   QLabel *logoLabel = new QLabel(tr("Logo:"));
+  QLabel *dataDirectoryLabel = new QLabel(tr("Daten Verzeichnis:"));
   QLabel *importDirectoryLabel = new QLabel(tr("Server Mode\nImport Verzeichnis:"));
   QLabel *backupDirectoryLabel = new QLabel(tr("Backup Verzeichnis:"));
 
   useLogo = new QCheckBox(tr("Logo verwenden"));
   logoEdit = new QLineEdit();
   logoEdit->setEnabled(false);
+  dataDirectoryEdit = new QLineEdit();
+  dataDirectoryEdit->setEnabled(false);
   backupDirectoryEdit = new QLineEdit();
   backupDirectoryEdit->setEnabled(false);
   importDirectoryEdit = new QLineEdit();
   importDirectoryEdit->setEnabled(false);
 
   logoButton = new QPushButton;
+  QPushButton *dataDirectoryButton = new QPushButton;
   QPushButton *backupDirectoryButton = new QPushButton;
   QPushButton *importDirectoryButton = new QPushButton;
 
   QHBoxLayout *logoLayout = new QHBoxLayout;
+  QHBoxLayout *dataDirectoryLayout = new QHBoxLayout;
   QHBoxLayout *backupDirectoryLayout = new QHBoxLayout;
   QHBoxLayout *importDirectoryLayout = new QHBoxLayout;
 
@@ -416,12 +438,18 @@ GeneralTab::GeneralTab(QSettings &settings, QWidget *parent)
   importDirectoryLayout->addWidget(importDirectoryButton);
   backupDirectoryLayout->addWidget(backupDirectoryEdit);
   backupDirectoryLayout->addWidget(backupDirectoryButton);
+  dataDirectoryLayout->addWidget(dataDirectoryEdit);
+  dataDirectoryLayout->addWidget(dataDirectoryButton);
 
   QIcon icon = QIcon(":icons/save.png");
   QSize size = QSize(32,32);
   logoButton->setIcon(icon);
   logoButton->setIconSize(size);
   logoButton->setText(tr("Auswahl"));
+
+  dataDirectoryButton->setIcon(icon);
+  dataDirectoryButton->setIconSize(size);
+  dataDirectoryButton->setText(tr("Auswahl"));
 
   importDirectoryButton->setIcon(icon);
   importDirectoryButton->setIconSize(size);
@@ -434,6 +462,7 @@ GeneralTab::GeneralTab(QSettings &settings, QWidget *parent)
   connect(logoButton, SIGNAL(clicked(bool)), this, SLOT(logoButton_clicked()));
   connect(backupDirectoryButton, SIGNAL(clicked(bool)), this, SLOT(backupDirectoryButton_clicked()));
   connect(importDirectoryButton, SIGNAL(clicked(bool)), this, SLOT(importDirectoryButton_clicked()));
+  connect(dataDirectoryButton, SIGNAL(clicked(bool)), this, SLOT(dataDirectoryButton_clicked()));
   connect(useLogo, SIGNAL(toggled(bool)) , this, SLOT(useLogoCheck_toggled(bool)));
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -443,6 +472,8 @@ GeneralTab::GeneralTab(QSettings &settings, QWidget *parent)
   mainLayout->addWidget(printFooterEdit);
   mainLayout->addWidget(logoLabel);
   mainLayout->addLayout(logoLayout);
+  mainLayout->addWidget(dataDirectoryLabel);
+  mainLayout->addLayout(dataDirectoryLayout);
   mainLayout->addWidget(importDirectoryLabel);
   mainLayout->addLayout(importDirectoryLayout);
   mainLayout->addWidget(backupDirectoryLabel);
@@ -470,6 +501,7 @@ GeneralTab::GeneralTab(QSettings &settings, QWidget *parent)
 
   useLogo->setChecked(settings.value("useLogo", false).toBool());
   logoEdit->setText(settings.value("logo", "./logo.png").toString());
+  dataDirectoryEdit->setText(settings.value("sqliteDataDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/data").toString());
   importDirectoryEdit->setText(settings.value("importDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/import").toString());
   backupDirectoryEdit->setText(settings.value("backupDirectory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).toString());
 }
@@ -507,6 +539,54 @@ void GeneralTab::backupDirectoryButton_clicked()
 
 }
 
+void GeneralTab::dataDirectoryButton_clicked()
+{
+
+  QString path = QFileDialog::getExistingDirectory(this, tr("Verzeichnis Auswahl"),
+                                                   getDataDirectory(),
+                                                   QFileDialog::ShowDirsOnly
+                                                   | QFileDialog::DontResolveSymlinks);
+
+  if (!path.isEmpty()) {
+    if ( !moveDataFiles( getDataDirectory(), path)) {
+      QMessageBox::critical(this,"Änderung des Daten Verzeichnis!",
+                            "Achtung!\n"
+                            "Das Verschieben der Daten ist Fehlgeschlagen.\n"
+                            "Sie müssen die Daten manuell verschieben und danach QRK neu starten."
+                            , "Ok");
+
+    }
+
+    dataDirectoryEdit->setText(path);
+  }
+
+}
+
+bool GeneralTab::moveDataFiles( QString fromDir, QString toDir)
+{
+
+  QDir from(fromDir);
+  QDir to(toDir);
+
+  QStringList filter;
+  filter << "*.db";
+  QStringList fileList = from.entryList(filter, QDir::Files);
+  foreach(QString fileName, fileList)
+  {
+    QFileInfo fi(from, fileName);
+    if (fi.isFile())  {
+      if (QFile::copy(fi.absoluteFilePath(), to.absoluteFilePath(fi.fileName()))) {
+        if (!QFile::remove(fi.absoluteFilePath ())) {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 void GeneralTab::importDirectoryButton_clicked()
 {
 
@@ -538,6 +618,11 @@ QString GeneralTab::getLogo()
 QString GeneralTab::getBackupDirectory()
 {
   return backupDirectoryEdit->text();
+}
+
+QString GeneralTab::getDataDirectory()
+{
+  return dataDirectoryEdit->text();
 }
 
 QString GeneralTab::getImportDirectory()
